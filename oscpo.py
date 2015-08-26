@@ -47,7 +47,8 @@ def create_tables():
 
         f = open(cpofile)
         reader = csv.reader(f, delimiter=',')
-        rows = [zip(headings, row) for row in reader]
 
-        with database.atomic():
-            Location.insert_many(rows)
+        for row in reader:
+            with database.atomic():
+                query = Location.create(**dict(zip(headings, row)))
+                query.save()
