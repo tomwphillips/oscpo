@@ -47,8 +47,11 @@ def create_tables():
 
         f = open(cpofile)
         reader = csv.reader(f, delimiter=',')
+        entries = [dict(zip(headings, row)) for row in reader]
 
-        for row in reader:
-            with database.atomic():
-                query = Location.create(**dict(zip(headings, row)))
-                query.save()
+        with database.atomic():
+            n = 50  # chunks of 50 at a time
+            for idx in range(0, len(entries), n):
+                Location.insert_many(entries[idx:idx+n]).execute()
+
+    print('Loaded {} records'.format(Location.select().count()))
