@@ -55,3 +55,24 @@ def create_tables():
                 Location.insert_many(entries[idx:idx+n]).execute()
 
     print('Loaded {} records'.format(Location.select().count()))
+
+
+def formatpostcode(postcode):
+    """Format a postcode so it can be queried against OS CPO.
+
+    Examples
+    --------
+    'W1 2AA' --> 'W1  2AA'
+    'SW7 2AZ' --> 'SW7 2AZ'
+    'WC2H 8LG' --> 'WC2H8LG'
+    """
+    postcode = postcode.replace(' ', '') # remove all spaces
+    postcode = postcode.upper()
+    if len(postcode) == 7:
+        return postcode
+    elif len(postcode) == 6:
+        return postcode[0:3] + ' ' + postcode[3:]
+    elif len(postcode) == 5:
+        return postcode[0:2] + '  ' + postcode[2:]
+    else:
+        raise ValueError('Postcode too long or short.')
