@@ -2,7 +2,7 @@ from glob import glob
 import csv
 from peewee import *
 
-dbname = ':memory:'
+dbname = 'oscpo.db'
 
 database = SqliteDatabase(dbname)
 
