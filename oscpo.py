@@ -58,14 +58,7 @@ def create_tables():
 
 
 def formatpostcode(postcode):
-    """Format a postcode so it can be queried against OS CPO.
-
-    Examples
-    --------
-    'W1 2AA' --> 'W1  2AA'
-    'SW7 2AZ' --> 'SW7 2AZ'
-    'WC2H 8LG' --> 'WC2H8LG'
-    """
+    """Format a postcode so it can be queried against OS CPO."""
     postcode = postcode.replace(' ', '') # remove all spaces
     postcode = postcode.upper()
     if len(postcode) == 7:
