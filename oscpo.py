@@ -76,3 +76,9 @@ def formatpostcode(postcode):
         return postcode[0:2] + '  ' + postcode[2:]
     else:
         raise ValueError('Postcode too long or short.')
+
+
+def eastings_northings(postcode):
+    """Return (eastings, northings) for postcode."""
+    query = Location.get(Location.postcode == formatpostcode(postcode))
+    return (query.eastings, query.northings)
