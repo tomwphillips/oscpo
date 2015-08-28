@@ -15,3 +15,6 @@ class OscpoTest(unittest.TestCase):
         self.assertEqual(len(e_n), 2)
         self.assertIsInstance(e_n[0], int)
         self.assertIsInstance(e_n[1], int)
+
+if __name__ == '__main__':
+    unittest.main()
