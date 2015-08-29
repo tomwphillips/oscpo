@@ -25,7 +25,12 @@ class Location(BaseModel):
     admin_ward_code = TextField()
 
 
-def create_tables():
+def create_tables(codepo_gb_location=''):
+    """Create the database tables.
+
+    codepo_gb_location: where the codepo_gb folder (downloaded from the OS web
+    site) is located. Default is empty, i.e. in the current directory.
+    """
     database.connect()
     database.create_tables([Location])
 
@@ -40,7 +45,7 @@ def create_tables():
                 'admin_district_code',
                 'admin_ward_code']
 
-    cpofiles = glob('codepo_gb/Data/CSV/*.csv')
+    cpofiles = glob(codepo_gb_location + 'codepo_gb/Data/CSV/*.csv')
 
     for i, cpofile in enumerate(cpofiles):
         print('Loading file {} of {}'.format(i+1, len(cpofiles)))
