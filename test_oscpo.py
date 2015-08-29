@@ -4,6 +4,14 @@ import unittest
 class OscpoTest(unittest.TestCase):
     """Tests for oscpo"""
 
+    @classmethod
+    def setUpClass(cls):
+        database.init('oscpo.db')
+
+    @classmethod
+    def tearDownClass(cls):
+        database.close()
+
     def test_formatpostcode(self):
         self.assertEqual(formatpostcode('W1 2AA'), 'W1  2AA')
         self.assertEqual(formatpostcode('SW7 2AZ'), 'SW7 2AZ')
