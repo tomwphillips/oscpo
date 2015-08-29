@@ -23,8 +23,14 @@ class Location(BaseModel):
     admin_ward_code = TextField()
 
 
-def create_tables(codepo_gb_location=''):
-    """Create the database tables.
+def create_tables():
+    """Create the database tables."""
+    database.connect()
+    database.create_tables([Location])
+
+
+def populate_tables(codepo_gb_location=None):
+    """Populate the database tables.
 
     Argument:
     ---------
@@ -32,7 +38,6 @@ def create_tables(codepo_gb_location=''):
     i.e. it's in the current directory. No trailing slash.
     """
     database.connect()
-    database.create_tables([Location])
 
     headings = ['postcode',
                 'positional_quality_indicator',
