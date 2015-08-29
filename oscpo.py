@@ -2,9 +2,7 @@ from glob import glob
 import csv
 from peewee import *
 
-dbname = 'oscpo.db'
-
-database = SqliteDatabase(dbname)
+database = SqliteDatabase(None)
 
 
 class BaseModel(Model):
