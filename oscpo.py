@@ -26,8 +26,10 @@ class Location(BaseModel):
 def create_tables(codepo_gb_location=''):
     """Create the database tables.
 
-    codepo_gb_location: where the codepo_gb folder (downloaded from the OS web
-    site) is located. Default is empty, i.e. in the current directory.
+    Argument:
+    ---------
+    codepo_gb_location: location of the codepo_gb folder. Default is empty,
+    i.e. it's in the current directory. No trailing slash.
     """
     database.connect()
     database.create_tables([Location])
@@ -43,7 +45,13 @@ def create_tables(codepo_gb_location=''):
                 'admin_district_code',
                 'admin_ward_code']
 
-    cpofiles = glob(codepo_gb_location + 'codepo_gb/Data/CSV/*.csv')
+    if codepo_gb_location is None:
+        codepo_gb_location = ''
+
+    cpofiles = glob(codepo_gb_location + '/codepo_gb/Data/CSV/*.csv')
+
+    if len(cpofiles) == 0:
+        raise ValueError('Could not locate Code-Point Open CSV files')
 
     for i, cpofile in enumerate(cpofiles):
         print('Loading file {} of {}'.format(i+1, len(cpofiles)))
